@@ -1,17 +1,17 @@
-import throttle from "lodash/throttle";
+import throttle from 'lodash/throttle';
 
-const FROM_STATE_KEY = "feedback-form-state";
+const FROM_STATE_KEY = 'feedback-form-state';
 
-const form = document.querySelector(".feedback-form");
+const form = document.querySelector('.feedback-form');
 const formdData = localStorage.getItem(FROM_STATE_KEY);
 
-const onInput = throttle((e) => saveForm(e.currentTarget), 500);
+const onInput = throttle(e => saveForm(e.currentTarget), 500);
 
 restoreForm(form);
 
-form.addEventListener("input", onInput);
+form.addEventListener('input', onInput);
 
-form.addEventListener("submit", onSubmit);
+form.addEventListener('submit', onSubmit);
 
 /**
  * Handles form on submit event
@@ -32,7 +32,6 @@ function onSubmit(e) {
 function saveForm(form) {
   if (form instanceof HTMLFormElement) {
     const formData = new FormData(form);
-    console.log(12);
     localStorage.setItem(
       FROM_STATE_KEY,
       JSON.stringify(Object.fromEntries(formData.entries()))
@@ -49,7 +48,7 @@ function restoreForm(form) {
     const savedData = localStorage.getItem(FROM_STATE_KEY);
     const savedFormData = savedData ? JSON.parse(savedData) : null;
     if (savedFormData) {
-      Object.keys(savedFormData).forEach((key) => {
+      Object.keys(savedFormData).forEach(key => {
         if (form[key]) {
           form[key].value = savedFormData[key];
         }
